@@ -12,7 +12,8 @@ int fcb_flash_read(Fcb* fcb, uint32_t addr, uint8_t* buf, size_t len)
     {
         return FCB_ERR_FLASH;
     }
-    return fcb->config.flash_read(fcb->config.flash_ctx, addr, buf, len);
+    int rc = fcb->config.flash_read(fcb->config.flash_ctx, addr, buf, len);
+    return (rc != 0) ? FCB_ERR_FLASH : FCB_OK;
 }
 
 int fcb_flash_write(Fcb* fcb, uint32_t addr, const uint8_t* data, size_t len)
@@ -21,7 +22,8 @@ int fcb_flash_write(Fcb* fcb, uint32_t addr, const uint8_t* data, size_t len)
     {
         return FCB_ERR_FLASH;
     }
-    return fcb->config.flash_write(fcb->config.flash_ctx, addr, data, len);
+    int rc = fcb->config.flash_write(fcb->config.flash_ctx, addr, data, len);
+    return (rc != 0) ? FCB_ERR_FLASH : FCB_OK;
 }
 
 int fcb_flash_erase(Fcb* fcb, uint32_t addr)
@@ -30,7 +32,8 @@ int fcb_flash_erase(Fcb* fcb, uint32_t addr)
     {
         return FCB_ERR_FLASH;
     }
-    return fcb->config.flash_erase(fcb->config.flash_ctx, addr);
+    int rc = fcb->config.flash_erase(fcb->config.flash_ctx, addr);
+    return (rc != 0) ? FCB_ERR_FLASH : FCB_OK;
 }
 
 int erase_sector(Fcb* fcb, uint32_t sector_num)
